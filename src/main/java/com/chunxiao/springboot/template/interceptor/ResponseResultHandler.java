@@ -1,7 +1,7 @@
 package com.chunxiao.springboot.template.interceptor;
 
 import com.chunxiao.springboot.template.constant.ApplicationConstants;
-import com.chunxiao.springboot.template.dto.Result;
+import com.chunxiao.springboot.template.dto.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         log.info("Wrap the result");
-        return Result.success(o);
+        return new CommonResponse(o);
     }
 
     @Override
