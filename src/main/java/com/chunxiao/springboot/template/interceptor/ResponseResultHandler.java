@@ -18,9 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
     @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         log.info("Wrap the result");
-        return new CommonResponse(o);
+        if(body instanceof  CommonResponse){
+            return body;
+        }
+        return new CommonResponse(body);
     }
 
     @Override

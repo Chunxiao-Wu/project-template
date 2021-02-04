@@ -1,6 +1,7 @@
 package com.chunxiao.springboot.template.controller;
 
 import com.chunxiao.springboot.template.annotation.ResponseResult;
+import com.chunxiao.springboot.template.exception.ApplicationException;
 import com.chunxiao.springboot.template.service.Greeting;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,27 @@ public class ProjectTemplateController {
     @ResponseResult
     public String goodBye() {
         return helloWorldService.greet();
+    }
+
+    @ApiOperation("unknown issue")
+    @GetMapping("/unknownIssue")
+    @ResponseResult
+    public String unknownIssue() {
+        String s = null;
+        s.toString();
+        return helloWorldService.greet();
+    }
+
+    @ApiOperation("known issue")
+    @GetMapping("/knownIssue")
+    @ResponseResult
+    public String knowIssue() {
+        System.out.println("know issue");
+        try{
+            throw new Exception();
+        }catch (Exception e){
+            throw new ApplicationException("test known issue");
+        }
     }
 
 
